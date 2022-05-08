@@ -15,13 +15,13 @@ mongoose
   // Todo: API routes 
   //  ! integrate and run from an another page || And search api tp put or not using regex?
 
-app.get("/createproduct", createProduct);
+app.post("/createproduct", createProduct);
 
 app.put("/updateproduct/:_id", updateProduct)
 
 app.get("/listproduct", listProduct)
 
-app.delete("/deleteproduct/:_id", deleteProduct)
+app.delete("/deleteproduct", deleteProduct)
 
 const port = process.env.PORT || 5000;
 

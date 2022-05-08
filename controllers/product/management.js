@@ -25,21 +25,26 @@ const updateProduct = async (req, res) => {
 
 const listProduct = async (req, res) => {
   try {
-    let data = await ProductSchema.find()
-    res.send(data)
+    let data = await ProductSchema.find();
+    res.send(data);
     console.log(data);
   } catch (error) {
-    res.send(error)
+    res.send(error);
   }
-}
+};
 
 const deleteProduct = async (req, res) => {
   try {
-    let data = await ProductSchema.deleteOne(req.params)
-    res.send(data)
+    if (Object.keys(req.query).length !== 0) {
+      let data = await ProductSchema.deleteMany(req.query)
+      res.send(data)
+    }
+    else {
+      res.send("Please provide info first")
+    }
   } catch (error) {
     res.send(error)
   }
-}
+};
 
 module.exports = { createProduct, updateProduct, listProduct, deleteProduct };
