@@ -1,5 +1,4 @@
-const res = require("express/lib/response");
-const Product = require("../../models/Product");
+// const Product = require("../../models/Product");
 const ProductSchema = require("../../models/Product");
 
  exports.createProduct = async (req, res) => {
