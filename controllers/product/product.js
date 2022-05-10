@@ -1,4 +1,3 @@
-// const Product = require("../../models/Product");
 const ProductSchema = require("../../models/Product");
 
  exports.createProduct = async (req, res) => {
@@ -22,9 +21,9 @@ const ProductSchema = require("../../models/Product");
   }
 }
 
- exports.listProduct = async (req, res) => {
+ exports.readProduct = async (req, res) => {
   try {
-    let data = await ProductSchema.find();
+    let data = await ProductSchema.find()  .populate("category");
     res.send(data);
     console.log(data);
   } catch (error) {
