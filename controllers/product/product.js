@@ -24,7 +24,6 @@ exports.createProduct = (req, res) => {
       }
       // console.log(fs.readFileSync(files.photo.filepath).byteLength.toString());
 
-
       product.photo.data = fs.readFileSync(files.photo.filepath);
       product.photo.contentType = files.photo.type;
     }
@@ -54,7 +53,7 @@ exports.readProduct = async (req, res) => {
   try {
     let data = await ProductSchema.find().populate("category");
     res.send(data);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     res.send(error);
   }
