@@ -1,15 +1,36 @@
-const res = require("express/lib/response");
 const categorySchema = require("../../models/Category");
+const formidable = require("formidable");
+const fs = require("fs");
 
 exports.createCategory = async (req, res) => {
-  try {
-    let data = new categorySchema(req.body);
-    let result = await data.save();
-    res.send(result);
-    console.log(result);
-  } catch (error) {
-    res.send(error);
-  }
+  const form = formidable({ multiples: true });
+
+  form.parse(req, async (err, field, file) => {
+    let category = new categorySchema(field);
+    
+    try {
+      if (file.image) {
+        if (file.image.size > 3000000) {
+          return res.status(400).json({
+            error: "File Size too big!",
+          });
+        }
+        category.image.data = fs.readFileSync(file.image.filepath);
+        category.image.contentType = file.image.type;
+      }
+    } catch (error) {
+      res.send(error);
+    }
+
+    category.save((err, category) => {
+      if (err) {
+        res.status(400).json({
+          error: "Saving tshirt in the DB failed",
+        });
+      }
+      res.send(category);
+    });
+  });
 };
 
 exports.updateCategory = async (req, res) => {

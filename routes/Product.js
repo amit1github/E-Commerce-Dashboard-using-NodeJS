@@ -6,6 +6,7 @@ const {
   updateProduct,
   readProduct,
   deleteProduct,
+  productByCategory
 } = require("../controllers/product/product");
 
 
@@ -18,7 +19,6 @@ router.get("/readproduct", readProduct);
 
 router.delete("/deleteproduct", deleteProduct);
 
-
-
+router.get("/products/categories", productByCategory)
 
 module.exports = router

@@ -9,6 +9,10 @@ const categorySchema = new mongoose.Schema(
       unique: true,
       maxlength: 32,
     },
+    image: {
+      data: Buffer,
+      contentType: String
+    }
   },
   { timestamps: true }
 );
