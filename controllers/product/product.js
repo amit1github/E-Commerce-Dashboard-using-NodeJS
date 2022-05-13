@@ -2,7 +2,6 @@ const ProductSchema = require("../../models/Product");
 const formidable = require("formidable");
 const fs = require("fs");
 
-
 exports.createProduct = (req, res) => {
   const form = formidable({ multiples: true });
 
@@ -51,8 +50,13 @@ exports.updateProduct = async (req, res) => {
 
 exports.readProduct = async (req, res) => {
   try {
-    let data = await ProductSchema.find().populate("category");
-    res.send(data);
+    const limitValue = req.query.limit || 2;
+    const skipValue = req.query.skip || 0;
+    let data = await ProductSchema.find()
+      .populate("category")
+      .limit(limitValue)
+      .skip(skipValue);
+    res.status(200).send(data);
     // console.log(data);
   } catch (error) {
     res.send(error);

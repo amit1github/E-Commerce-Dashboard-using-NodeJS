@@ -7,7 +7,7 @@ exports.createCategory = async (req, res) => {
 
   form.parse(req, async (err, field, file) => {
     let category = new categorySchema(field);
-    
+
     try {
       if (file.image) {
         if (file.image.size > 3000000) {
@@ -45,9 +45,11 @@ exports.updateCategory = async (req, res) => {
 
 exports.readCategory = async (req, res) => {
   try {
-    let data = await categorySchema.find();
-    res.send(data);
-    console.log(data);
+    const limitValue = req.query.limit || 2;
+    const skipValue = req.query.skip || 0;
+    let data = await categorySchema.find().limit(limitValue).skip(skipValue)
+    res.status(200).send(data);
+    // console.log(data);
   } catch (error) {
     res.send(error);
   }
