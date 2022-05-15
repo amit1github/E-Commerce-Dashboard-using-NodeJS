@@ -9,6 +9,7 @@ const productRoutes = require("./routes/Product");
 const categoryRoutes = require("./routes/Category");
 const imageRoutes = require("./routes/Image");
 const cartRoutes = require("./routes/Cart")
+const addresssRoutes = require("./routes/Address")
 
 // DB Connection
 mongoose
@@ -21,6 +22,7 @@ app.use("/api", productRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", imageRoutes);
 app.use("/api", cartRoutes);
+app.use("/api", addresssRoutes)
 
 // Port
 const port = process.env.PORT || 5000;
